@@ -9,10 +9,13 @@
  * Domain Path: /languages/
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+ * 
+ * Icon: assets/icon.png
  */
 
 // Load plugin text domain
-function pcmg_load_textdomain() {
+function pcmg_load_textdomain()
+{
     load_plugin_textdomain('product-categories-menu-generator', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 }
 add_action('plugins_loaded', 'pcmg_load_textdomain');
@@ -90,14 +93,14 @@ function pcmg_render_menu_page()
     $total_menus = count($my_menus);
     $total_menu_items = 0;
     $total_categories = count(get_terms(array('taxonomy' => 'product_cat', 'hide_empty' => false)));
-    
+
     if (!empty($my_menus)) {
         foreach ($my_menus as $menu) {
             $menu_items = wp_get_nav_menu_items($menu['id']);
             $total_menu_items += $menu_items ? count($menu_items) : 0;
         }
     }
-    
+
     // Allow filtering of statistics
     $stats = apply_filters('pcmg_statistics', array(
         'total_menus' => $total_menus,
@@ -113,7 +116,7 @@ function pcmg_render_menu_page()
             <div class="pcmg-loading-text"><?php esc_html_e('Working Magic', 'Product-Categories-Menu-Generator'); ?></div>
             <div class="pcmg-loading-subtext"><?php esc_html_e('Creating menus in progress...', 'Product-Categories-Menu-Generator'); ?></div>
         </div>
-        
+
         <div class="pcmg-header">
             <h1 class="pcmg-heading"><?php echo esc_html(get_admin_page_title()); ?> </h1>
             <div class="pcmg-docs-link">
@@ -123,13 +126,13 @@ function pcmg_render_menu_page()
                 </a>
             </div>
         </div>
-        
+
         <!-- Success/Error Messages -->
         <div id="pcmg-success-message" class="pcmg-message pcmg-success-message"></div>
         <div id="pcmg-error-message" class="pcmg-message pcmg-error-message"></div>
-        
+
         <?php do_action('pcmg_before_statistics'); ?>
-        
+
         <!-- Stats Section -->
         <div class="pcmg-stats">
             <h2 class="pcmg-stats-heading"><?php esc_html_e('Menu Statistics', 'Product-Categories-Menu-Generator'); ?></h2>
@@ -149,72 +152,72 @@ function pcmg_render_menu_page()
                 <?php do_action('pcmg_statistics_extra_cards'); ?>
             </div>
         </div>
-        
+
         <?php do_action('pcmg_after_statistics'); ?>
-        
+
         <!-- Get started fast - Form first for new users -->
         <?php if (empty($my_menus)): ?>
-        <div class="pcmg-card">
-            <h2 class="pcmg-card-heading"><?php esc_html_e('Create Your First Menu', 'Product-Categories-Menu-Generator'); ?></h2>
-            <form id="menu-generator-form" class="pcmg-form">
-                <div class="pcmg-field-row">
-                    <label for="menu-name" class="pcmg-label"><?php esc_html_e('Menu Name:', 'Product-Categories-Menu-Generator'); ?></label>
-                    <input type="text" id="menu-name" name="menu-name" class="pcmg-input" placeholder="<?php esc_attr_e('Enter menu name', 'Product-Categories-Menu-Generator'); ?>" required>
-                </div>
-                
-                <div class="pcmg-field-row">
-                    <label for="menu-depth" class="pcmg-label"><?php esc_html_e('Menu Depth:', 'Product-Categories-Menu-Generator'); ?></label>
-                    <select id="menu-depth" name="menu-depth" class="pcmg-input">
-                        <option value="0"><?php esc_html_e('All levels (unlimited depth)', 'Product-Categories-Menu-Generator'); ?></option>
-                        <option value="1"><?php esc_html_e('Top level categories only', 'Product-Categories-Menu-Generator'); ?></option>
-                        <option value="2"><?php esc_html_e('Top level + one subcategory level', 'Product-Categories-Menu-Generator'); ?></option>
-                        <option value="3"><?php esc_html_e('Top level + two subcategory levels', 'Product-Categories-Menu-Generator'); ?></option>
-                    </select>
-                    <p class="pcmg-field-description"><?php esc_html_e('Select how many levels of subcategories to include in the menu.', 'Product-Categories-Menu-Generator'); ?></p>
-                </div>
-                
-                <?php 
-                // Allow plugins to add custom fields
-                do_action('pcmg_form_fields'); 
-                
-                // Generate options for the form using a filter
-                $form_options = apply_filters('pcmg_form_options', array(
-                    'skip_empty' => array(
-                        'id' => 'skip-empty',
-                        'name' => 'skip-empty',
-                        'label' => __('Skip empty categories', 'Product-Categories-Menu-Generator'),
-                        'description' => __('Categories with no products will be excluded from the menu.', 'Product-Categories-Menu-Generator')
-                    )
-                ));
-                
-                foreach ($form_options as $option): 
-                ?>
-                <div class="pcmg-field-row">
-                    <label for="<?php echo esc_attr($option['id']); ?>" class="pcmg-checkbox-label">
-                        <input type="checkbox" id="<?php echo esc_attr($option['id']); ?>" name="<?php echo esc_attr($option['name']); ?>" class="pcmg-checkbox">
-                        <?php echo esc_html($option['label']); ?>
-                    </label>
-                    <?php if (!empty($option['description'])): ?>
-                        <p class="pcmg-field-description"><?php echo esc_html($option['description']); ?></p>
-                    <?php endif; ?>
-                </div>
-                <?php endforeach; ?>
-                
-                <div class="pcmg-submit-row">
-                    <button type="submit" id="generate-menu" class="button button-primary"><?php esc_html_e('Generate Menu', 'Product-Categories-Menu-Generator'); ?></button>
-                    <div id="loading-new" class="pcmg-loading"></div>
-                </div>
-            </form>
-        </div>
+            <div class="pcmg-card">
+                <h2 class="pcmg-card-heading"><?php esc_html_e('Create Your First Menu', 'Product-Categories-Menu-Generator'); ?></h2>
+                <form id="menu-generator-form" class="pcmg-form">
+                    <div class="pcmg-field-row">
+                        <label for="menu-name" class="pcmg-label"><?php esc_html_e('Menu Name:', 'Product-Categories-Menu-Generator'); ?></label>
+                        <input type="text" id="menu-name" name="menu-name" class="pcmg-input" placeholder="<?php esc_attr_e('Enter menu name', 'Product-Categories-Menu-Generator'); ?>" required>
+                    </div>
+
+                    <div class="pcmg-field-row">
+                        <label for="menu-depth" class="pcmg-label"><?php esc_html_e('Menu Depth:', 'Product-Categories-Menu-Generator'); ?></label>
+                        <select id="menu-depth" name="menu-depth" class="pcmg-input">
+                            <option value="0"><?php esc_html_e('All levels (unlimited depth)', 'Product-Categories-Menu-Generator'); ?></option>
+                            <option value="1"><?php esc_html_e('Top level categories only', 'Product-Categories-Menu-Generator'); ?></option>
+                            <option value="2"><?php esc_html_e('Top level + one subcategory level', 'Product-Categories-Menu-Generator'); ?></option>
+                            <option value="3"><?php esc_html_e('Top level + two subcategory levels', 'Product-Categories-Menu-Generator'); ?></option>
+                        </select>
+                        <p class="pcmg-field-description"><?php esc_html_e('Select how many levels of subcategories to include in the menu.', 'Product-Categories-Menu-Generator'); ?></p>
+                    </div>
+
+                    <?php
+                    // Allow plugins to add custom fields
+                    do_action('pcmg_form_fields');
+
+                    // Generate options for the form using a filter
+                    $form_options = apply_filters('pcmg_form_options', array(
+                        'skip_empty' => array(
+                            'id' => 'skip-empty',
+                            'name' => 'skip-empty',
+                            'label' => __('Skip empty categories', 'Product-Categories-Menu-Generator'),
+                            'description' => __('Categories with no products will be excluded from the menu.', 'Product-Categories-Menu-Generator')
+                        )
+                    ));
+
+                    foreach ($form_options as $option):
+                    ?>
+                        <div class="pcmg-field-row">
+                            <label for="<?php echo esc_attr($option['id']); ?>" class="pcmg-checkbox-label">
+                                <input type="checkbox" id="<?php echo esc_attr($option['id']); ?>" name="<?php echo esc_attr($option['name']); ?>" class="pcmg-checkbox">
+                                <?php echo esc_html($option['label']); ?>
+                            </label>
+                            <?php if (!empty($option['description'])): ?>
+                                <p class="pcmg-field-description"><?php echo esc_html($option['description']); ?></p>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <div class="pcmg-submit-row">
+                        <button type="submit" id="generate-menu" class="button button-primary"><?php esc_html_e('Generate Menu', 'Product-Categories-Menu-Generator'); ?></button>
+                        <div id="loading-new" class="pcmg-loading"></div>
+                    </div>
+                </form>
+            </div>
         <?php endif; ?>
-        
+
         <!-- Instructions Section -->
         <div class="pcmg-card pcmg-instructions">
             <h2 class="pcmg-card-heading"><?php esc_html_e('How to Use', 'Product-Categories-Menu-Generator'); ?></h2>
             <div class="pcmg-notice">
                 <?php echo wp_kses_post(apply_filters('pcmg_instructions_intro', __('This plugin helps you automatically generate WordPress navigation menus from your WooCommerce product categories.', 'Product-Categories-Menu-Generator'))); ?>
             </div>
-            <?php 
+            <?php
             $instructions = apply_filters('pcmg_instructions_steps', array(
                 __('Enter a name for your new menu in the form below.', 'Product-Categories-Menu-Generator'),
                 __('Check "Skip empty categories" if you want to exclude categories with no products.', 'Product-Categories-Menu-Generator'),
@@ -234,155 +237,155 @@ function pcmg_render_menu_page()
         <?php do_action('pcmg_before_menus_table'); ?>
 
         <?php if (!empty($my_menus)): ?>
-        <!-- Existing Menus Section -->
-        <div class="pcmg-card">
-            <h2 class="pcmg-card-heading"><?php esc_html_e('Your Generated Menus', 'Product-Categories-Menu-Generator'); ?></h2>
-            
-            <div class="pcmg-bulk-actions">
-                <select id="pcmg-bulk-action">
-                    <option value=""><?php esc_html_e('Bulk Actions', 'Product-Categories-Menu-Generator'); ?></option>
-                    <?php 
-                    $bulk_actions = apply_filters('pcmg_bulk_actions', array(
-                        'delete' => __('Delete', 'Product-Categories-Menu-Generator')
-                    ));
-                    
-                    foreach ($bulk_actions as $action => $label): 
-                    ?>
-                        <option value="<?php echo esc_attr($action); ?>"><?php echo esc_html($label); ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <button id="pcmg-bulk-apply" class="button pcmg-action-button"><?php esc_html_e('Apply', 'Product-Categories-Menu-Generator'); ?></button>
-                <span id="pcmg-bulk-loading" class="pcmg-loading"></span>
-                <div class="pcmg-select-all-wrap">
-                    <label>
-                        <input type="checkbox" id="pcmg-select-all" />
-                        <span><?php esc_html_e('Select All', 'Product-Categories-Menu-Generator'); ?></span>
-                    </label>
-                </div>
-            </div>
-            
-            <table class="pcmg-menus-table">
-                <thead>
-                    <tr>
-                        <th class="pcmg-checkbox-column"><span class="screen-reader-text"><?php esc_html_e('Select', 'Product-Categories-Menu-Generator'); ?></span></th>
-                        <?php 
-                        $table_headers = apply_filters('pcmg_table_headers', array(
-                            'id' => __('ID', 'Product-Categories-Menu-Generator'),
-                            'name' => __('Name', 'Product-Categories-Menu-Generator'),
-                            'items' => __('Items', 'Product-Categories-Menu-Generator'),
-                            'actions' => __('Actions', 'Product-Categories-Menu-Generator')
+            <!-- Existing Menus Section -->
+            <div class="pcmg-card">
+                <h2 class="pcmg-card-heading"><?php esc_html_e('Your Generated Menus', 'Product-Categories-Menu-Generator'); ?></h2>
+
+                <div class="pcmg-bulk-actions">
+                    <select id="pcmg-bulk-action">
+                        <option value=""><?php esc_html_e('Bulk Actions', 'Product-Categories-Menu-Generator'); ?></option>
+                        <?php
+                        $bulk_actions = apply_filters('pcmg_bulk_actions', array(
+                            'delete' => __('Delete', 'Product-Categories-Menu-Generator')
                         ));
-                        
-                        foreach ($table_headers as $id => $header): 
+
+                        foreach ($bulk_actions as $action => $label):
                         ?>
-                            <th class="pcmg-column-<?php echo esc_attr($id); ?>"><?php echo esc_html($header); ?></th>
+                            <option value="<?php echo esc_attr($action); ?>"><?php echo esc_html($label); ?></option>
                         <?php endforeach; ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    foreach ($my_menus as $menu): 
-                        $menu = (object)$menu; 
-                        $menu_items_count = wp_get_nav_menu_items($menu->id) ? count(wp_get_nav_menu_items($menu->id)) : 0;
-                        
-                        // Allow plugins to skip showing certain menus
-                        if (apply_filters('pcmg_should_display_menu', true, $menu)) :
-                    ?>
-                        <tr>
-                            <td><input type="checkbox" class="pcmg-menu-checkbox" value="<?php echo esc_attr($menu->id); ?>" /></td>
-                            <td><?php echo esc_html($menu->id); ?></td>
-                            <td><?php echo esc_html($menu->name); ?></td>
-                            <td><?php echo esc_html($menu_items_count); ?></td>
-                            <td>
-                                <div class="pcmg-actions">
-                                    <?php 
-                                    // Allow plugins to add custom actions
-                                    do_action('pcmg_before_menu_actions', $menu);
-                                    ?>
-                                    <a href="javascript:;" data-menu-id="<?php echo esc_attr($menu->id); ?>" class="pcmg-action-button pcmg-update-button update-menu">
-                                        <span class="dashicons dashicons-update"></span> <?php esc_html_e('Update', 'Product-Categories-Menu-Generator'); ?>
-                                        <span id="loading-<?php echo esc_attr($menu->id); ?>" class="pcmg-loading"></span>
-                                    </a>
-                                    <a href="javascript:;" data-menu-id="<?php echo esc_attr($menu->id); ?>" class="pcmg-action-button pcmg-delete-button delete-menu">
-                                        <span class="dashicons dashicons-trash"></span> <?php esc_html_e('Delete', 'Product-Categories-Menu-Generator'); ?>
-                                    </a>
-                                    <?php 
-                                    // Allow plugins to add custom actions
-                                    do_action('pcmg_after_menu_actions', $menu);
-                                    ?>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php 
-                        endif;
-                    endforeach; 
-                    ?>
-                </tbody>
-            </table>
-        </div>
-        <?php endif; ?>
-        
-        <?php do_action('pcmg_before_generator_form'); ?>
-        
-        <?php if (!empty($my_menus)): ?>
-        <!-- Menu Generator Form -->
-        <div class="pcmg-card">
-            <h2 class="pcmg-card-heading"><?php esc_html_e('Generate New Menu', 'Product-Categories-Menu-Generator'); ?></h2>
-            <form id="menu-generator-form" class="pcmg-form">
-                <div class="pcmg-field-row">
-                    <label for="menu-name" class="pcmg-label"><?php esc_html_e('Menu Name:', 'Product-Categories-Menu-Generator'); ?></label>
-                    <input type="text" id="menu-name" name="menu-name" class="pcmg-input" placeholder="<?php esc_attr_e('Enter menu name', 'Product-Categories-Menu-Generator'); ?>" required>
-                </div>
-                
-                <div class="pcmg-field-row">
-                    <label for="menu-depth" class="pcmg-label"><?php esc_html_e('Menu Depth:', 'Product-Categories-Menu-Generator'); ?></label>
-                    <select id="menu-depth" name="menu-depth" class="pcmg-input">
-                        <option value="0"><?php esc_html_e('All levels (unlimited depth)', 'Product-Categories-Menu-Generator'); ?></option>
-                        <option value="1"><?php esc_html_e('Top level categories only', 'Product-Categories-Menu-Generator'); ?></option>
-                        <option value="2"><?php esc_html_e('Top level + one subcategory level', 'Product-Categories-Menu-Generator'); ?></option>
-                        <option value="3"><?php esc_html_e('Top level + two subcategory levels', 'Product-Categories-Menu-Generator'); ?></option>
                     </select>
-                    <p class="pcmg-field-description"><?php esc_html_e('Select how many levels of subcategories to include in the menu.', 'Product-Categories-Menu-Generator'); ?></p>
+                    <button id="pcmg-bulk-apply" class="button pcmg-action-button"><?php esc_html_e('Apply', 'Product-Categories-Menu-Generator'); ?></button>
+                    <span id="pcmg-bulk-loading" class="pcmg-loading"></span>
+                    <div class="pcmg-select-all-wrap">
+                        <label>
+                            <input type="checkbox" id="pcmg-select-all" />
+                            <span><?php esc_html_e('Select All', 'Product-Categories-Menu-Generator'); ?></span>
+                        </label>
+                    </div>
                 </div>
-                
-                <?php 
-                // Allow plugins to add custom fields
-                do_action('pcmg_form_fields'); 
-                
-                // Generate options for the form using a filter
-                $form_options = apply_filters('pcmg_form_options', array(
-                    'skip_empty' => array(
-                        'id' => 'skip-empty',
-                        'name' => 'skip-empty',
-                        'label' => __('Skip empty categories', 'Product-Categories-Menu-Generator'),
-                        'description' => __('Categories with no products will be excluded from the menu.', 'Product-Categories-Menu-Generator')
-                    )
-                ));
-                
-                foreach ($form_options as $option): 
-                ?>
-                <div class="pcmg-field-row">
-                    <label for="<?php echo esc_attr($option['id']); ?>" class="pcmg-checkbox-label">
-                        <input type="checkbox" id="<?php echo esc_attr($option['id']); ?>" name="<?php echo esc_attr($option['name']); ?>" class="pcmg-checkbox">
-                        <?php echo esc_html($option['label']); ?>
-                    </label>
-                    <?php if (!empty($option['description'])): ?>
-                        <p class="pcmg-field-description"><?php echo esc_html($option['description']); ?></p>
-                    <?php endif; ?>
-                </div>
-                <?php endforeach; ?>
-                
-                <div class="pcmg-submit-row">
-                    <button type="submit" id="generate-menu" class="button button-primary"><?php esc_html_e('Generate Menu', 'Product-Categories-Menu-Generator'); ?></button>
-                    <div id="loading-new" class="pcmg-loading"></div>
-                </div>
-            </form>
-        </div>
+
+                <table class="pcmg-menus-table">
+                    <thead>
+                        <tr>
+                            <th class="pcmg-checkbox-column"><span class="screen-reader-text"><?php esc_html_e('Select', 'Product-Categories-Menu-Generator'); ?></span></th>
+                            <?php
+                            $table_headers = apply_filters('pcmg_table_headers', array(
+                                'id' => __('ID', 'Product-Categories-Menu-Generator'),
+                                'name' => __('Name', 'Product-Categories-Menu-Generator'),
+                                'items' => __('Items', 'Product-Categories-Menu-Generator'),
+                                'actions' => __('Actions', 'Product-Categories-Menu-Generator')
+                            ));
+
+                            foreach ($table_headers as $id => $header):
+                            ?>
+                                <th class="pcmg-column-<?php echo esc_attr($id); ?>"><?php echo esc_html($header); ?></th>
+                            <?php endforeach; ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($my_menus as $menu):
+                            $menu = (object)$menu;
+                            $menu_items_count = wp_get_nav_menu_items($menu->id) ? count(wp_get_nav_menu_items($menu->id)) : 0;
+
+                            // Allow plugins to skip showing certain menus
+                            if (apply_filters('pcmg_should_display_menu', true, $menu)) :
+                        ?>
+                                <tr>
+                                    <td><input type="checkbox" class="pcmg-menu-checkbox" value="<?php echo esc_attr($menu->id); ?>" /></td>
+                                    <td><?php echo esc_html($menu->id); ?></td>
+                                    <td><?php echo esc_html($menu->name); ?></td>
+                                    <td><?php echo esc_html($menu_items_count); ?></td>
+                                    <td>
+                                        <div class="pcmg-actions">
+                                            <?php
+                                            // Allow plugins to add custom actions
+                                            do_action('pcmg_before_menu_actions', $menu);
+                                            ?>
+                                            <a href="javascript:;" data-menu-id="<?php echo esc_attr($menu->id); ?>" class="pcmg-action-button pcmg-update-button update-menu">
+                                                <span class="dashicons dashicons-update"></span> <?php esc_html_e('Update', 'Product-Categories-Menu-Generator'); ?>
+                                                <span id="loading-<?php echo esc_attr($menu->id); ?>" class="pcmg-loading"></span>
+                                            </a>
+                                            <a href="javascript:;" data-menu-id="<?php echo esc_attr($menu->id); ?>" class="pcmg-action-button pcmg-delete-button delete-menu">
+                                                <span class="dashicons dashicons-trash"></span> <?php esc_html_e('Delete', 'Product-Categories-Menu-Generator'); ?>
+                                            </a>
+                                            <?php
+                                            // Allow plugins to add custom actions
+                                            do_action('pcmg_after_menu_actions', $menu);
+                                            ?>
+                                        </div>
+                                    </td>
+                                </tr>
+                        <?php
+                            endif;
+                        endforeach;
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         <?php endif; ?>
-        
+
+        <?php do_action('pcmg_before_generator_form'); ?>
+
+        <?php if (!empty($my_menus)): ?>
+            <!-- Menu Generator Form -->
+            <div class="pcmg-card">
+                <h2 class="pcmg-card-heading"><?php esc_html_e('Generate New Menu', 'Product-Categories-Menu-Generator'); ?></h2>
+                <form id="menu-generator-form" class="pcmg-form">
+                    <div class="pcmg-field-row">
+                        <label for="menu-name" class="pcmg-label"><?php esc_html_e('Menu Name:', 'Product-Categories-Menu-Generator'); ?></label>
+                        <input type="text" id="menu-name" name="menu-name" class="pcmg-input" placeholder="<?php esc_attr_e('Enter menu name', 'Product-Categories-Menu-Generator'); ?>" required>
+                    </div>
+
+                    <div class="pcmg-field-row">
+                        <label for="menu-depth" class="pcmg-label"><?php esc_html_e('Menu Depth:', 'Product-Categories-Menu-Generator'); ?></label>
+                        <select id="menu-depth" name="menu-depth" class="pcmg-input">
+                            <option value="0"><?php esc_html_e('All levels (unlimited depth)', 'Product-Categories-Menu-Generator'); ?></option>
+                            <option value="1"><?php esc_html_e('Top level categories only', 'Product-Categories-Menu-Generator'); ?></option>
+                            <option value="2"><?php esc_html_e('Top level + one subcategory level', 'Product-Categories-Menu-Generator'); ?></option>
+                            <option value="3"><?php esc_html_e('Top level + two subcategory levels', 'Product-Categories-Menu-Generator'); ?></option>
+                        </select>
+                        <p class="pcmg-field-description"><?php esc_html_e('Select how many levels of subcategories to include in the menu.', 'Product-Categories-Menu-Generator'); ?></p>
+                    </div>
+
+                    <?php
+                    // Allow plugins to add custom fields
+                    do_action('pcmg_form_fields');
+
+                    // Generate options for the form using a filter
+                    $form_options = apply_filters('pcmg_form_options', array(
+                        'skip_empty' => array(
+                            'id' => 'skip-empty',
+                            'name' => 'skip-empty',
+                            'label' => __('Skip empty categories', 'Product-Categories-Menu-Generator'),
+                            'description' => __('Categories with no products will be excluded from the menu.', 'Product-Categories-Menu-Generator')
+                        )
+                    ));
+
+                    foreach ($form_options as $option):
+                    ?>
+                        <div class="pcmg-field-row">
+                            <label for="<?php echo esc_attr($option['id']); ?>" class="pcmg-checkbox-label">
+                                <input type="checkbox" id="<?php echo esc_attr($option['id']); ?>" name="<?php echo esc_attr($option['name']); ?>" class="pcmg-checkbox">
+                                <?php echo esc_html($option['label']); ?>
+                            </label>
+                            <?php if (!empty($option['description'])): ?>
+                                <p class="pcmg-field-description"><?php echo esc_html($option['description']); ?></p>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <div class="pcmg-submit-row">
+                        <button type="submit" id="generate-menu" class="button button-primary"><?php esc_html_e('Generate Menu', 'Product-Categories-Menu-Generator'); ?></button>
+                        <div id="loading-new" class="pcmg-loading"></div>
+                    </div>
+                </form>
+            </div>
+        <?php endif; ?>
+
         <?php do_action('pcmg_after_generator_form'); ?>
     </div>
-    <?php
+<?php
 }
 
 /**
@@ -392,9 +395,10 @@ function pcmg_render_menu_page()
  * @return array Sanitized settings.
  * @since    1.0.0
  */
-function pcmg_sanitize_settings($input) {
+function pcmg_sanitize_settings($input)
+{
     $sanitized_input = array();
-    
+
     // If we have settings to sanitize
     if (is_array($input)) {
         foreach ($input as $key => $value) {
@@ -405,7 +409,7 @@ function pcmg_sanitize_settings($input) {
             }
         }
     }
-    
+
     return $sanitized_input;
 }
 
@@ -416,7 +420,7 @@ function pcmg_sanitize_settings($input) {
 function pcmg_init_settings()
 {
     register_setting(
-        'product_categories_menu_generator_settings', 
+        'product_categories_menu_generator_settings',
         'product_categories_menu_generator_settings',
         array(
             'sanitize_callback' => 'pcmg_sanitize_settings',
@@ -455,7 +459,7 @@ function pcmg_generate_menu()
     $skip_empty = $_POST['skip_empty'] == 'true';
     $menu_depth = isset($_POST['menu_depth']) ? intval($_POST['menu_depth']) : 0; // Get menu depth parameter
 
-   
+
     if (!empty($menu_name)):
 
         $registered_menus = get_option('woo_registered_menus_from_pcmg');
@@ -478,7 +482,9 @@ function pcmg_generate_menu()
 
         $registered_menus[] = [
             'id' => $menu_id,
-            'name' => $menu_name
+            'name' => $menu_name,
+            'skip_empty' => $skip_empty,
+            'menu_depth' => $menu_depth
         ];
 
         update_option('woo_registered_menus_from_pcmg', $registered_menus);
@@ -585,17 +591,17 @@ function pcmg_delete_menu()
 
     if (isset($_POST['menu_id'])) {
         $menu_id = intval($_POST['menu_id']);
-        
+
         // Check if the menu exists before attempting to delete
         $menu_object = wp_get_nav_menu_object($menu_id);
         if (!$menu_object) {
             wp_send_json_error('Menu does not exist or has already been deleted.', 400);
             return;
         }
-        
+
         $deleted = wp_delete_nav_menu($menu_id);
         $registered_menus = get_option('woo_registered_menus_from_pcmg', array());
-        
+
         foreach ($registered_menus as $index => $registered_menu) {
             if ($registered_menu['id'] == $menu_id) {
                 unset($registered_menus[$index]);
@@ -603,7 +609,7 @@ function pcmg_delete_menu()
                 break;
             }
         }
-        
+
         // Update the registered menus option
         update_option('woo_registered_menus_from_pcmg', array_values($registered_menus));
     } else {
@@ -629,9 +635,30 @@ function pcmg_update_menu()
 
     if (isset($_POST['menu_id'])):
         $menu_id = intval($_POST['menu_id']);
-        $skip_empty = isset($_POST['skip_empty']) ? $_POST['skip_empty'] == 'true' : false;
-        $menu_depth = isset($_POST['menu_depth']) ? intval($_POST['menu_depth']) : 0;
-        
+
+        // Find menu settings from the stored options
+        $registered_menus = get_option('woo_registered_menus_from_pcmg', array());
+        $skip_empty = false;
+        $menu_depth = 0;
+
+        // Look for this menu's settings in stored options
+        $menu_settings_found = false;
+        foreach ($registered_menus as $registered_menu) {
+            if ($registered_menu['id'] == $menu_id) {
+                // Use stored settings if available, or fall back to defaults
+                $skip_empty = isset($registered_menu['skip_empty']) ? $registered_menu['skip_empty'] : false;
+                $menu_depth = isset($registered_menu['menu_depth']) ? $registered_menu['menu_depth'] : 0;
+                $menu_settings_found = true;
+                break;
+            }
+        }
+
+        // If settings weren't found, use what was passed in the POST request as fallback
+        if (!$menu_settings_found) {
+            $skip_empty = isset($_POST['skip_empty']) ? $_POST['skip_empty'] == 'true' : false;
+            $menu_depth = isset($_POST['menu_depth']) ? intval($_POST['menu_depth']) : 0;
+        }
+
         // Check if the menu exists before attempting to update
         $menu = wp_get_nav_menu_object($menu_id);
         if (!$menu) {
@@ -660,7 +687,8 @@ function pcmg_update_menu()
  * Bulk Delete Menus
  * @since    1.0.0
  */
-function pcmg_bulk_delete_menus() {
+function pcmg_bulk_delete_menus()
+{
     if (!isset($_POST['nonce_ajax']) || !wp_verify_nonce($_POST['nonce_ajax'], 'pcmg-script-nonce')) {
         wp_die('Unauthorized request. Go away!');
     }
@@ -678,10 +706,10 @@ function pcmg_bulk_delete_menus() {
 
     foreach ($menu_ids as $menu_id) {
         $deleted = wp_delete_nav_menu($menu_id);
-        
+
         if ($deleted) {
             $deleted_count++;
-            
+
             // Remove from our registered menus
             foreach ($registered_menus as $index => $registered_menu) {
                 if ($registered_menu['id'] == $menu_id) {
@@ -694,10 +722,10 @@ function pcmg_bulk_delete_menus() {
             $failed_count++;
         }
     }
-    
+
     // Update the registered menus option
     update_option('woo_registered_menus_from_pcmg', array_values($registered_menus));
-    
+
     if ($deleted_count > 0) {
         // translators: %d: number of menus that were successfully deleted
         $message = sprintf(
@@ -709,7 +737,7 @@ function pcmg_bulk_delete_menus() {
             ),
             $deleted_count
         );
-        
+
         if ($failed_count > 0) {
             // translators: %d: number of menus that failed to delete
             $message .= ' ' . sprintf(
@@ -722,7 +750,7 @@ function pcmg_bulk_delete_menus() {
                 $failed_count
             );
         }
-        
+
         wp_send_json_success($message, 200);
     } else {
         wp_send_json_error('No menus were deleted. Please try again.', 400);

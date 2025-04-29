@@ -322,8 +322,6 @@
             const $button = $(this);
             const menuId = $button.data('menu-id');
             const $spinner = $('#loading-' + menuId);
-            const skipEmpty = $('#skip-empty').is(':checked');
-            const menuDepth = $('#menu-depth').val();
 
             // Show loading state
             $button.prop('disabled', true);
@@ -338,8 +336,6 @@
                 data: {
                     action: "update_menu",
                     menu_id: menuId,
-                    skip_empty: skipEmpty,
-                    menu_depth: menuDepth,
                     nonce_ajax: pcmg_ajax.nonce
                 },
                 dataType: "json",
