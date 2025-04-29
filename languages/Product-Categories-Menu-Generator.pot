@@ -1,0 +1,23 @@
+# Copyright (C) 2023 Your Name
+# This file is distributed under the same license as the Product Categories Menu Generator package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Product Categories Menu Generator 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-01 10:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+msgid "Product Categories Menu Generator"
+msgstr ""
+
+msgid "A plugin to generate a new WordPress navigation menu with all product categories as menu items."
+msgstr ""
+
+#. Author of the plugin
+msgid "Your Name"
+msgstr "" 
